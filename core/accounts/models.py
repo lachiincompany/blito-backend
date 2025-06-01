@@ -7,6 +7,9 @@ from django.contrib.auth.models import (
 from django.core.exceptions import ValidationError
 import re 
 from django.utils.translation import gettext_lazy as _ 
+from django.core.validators import RegexValidator
+from django.dispatch import receiver
+from django.db.models.signals import post_save
 # Create your models here.
 
 
@@ -81,5 +84,46 @@ class CustomUser(AbstractBaseUser, PermissionsMixin)    :
         return self.phone
     
 
+class Profile(models.Model):
+    """
+    Profile model to store additional user information.
+    """
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name="profile", verbose_name="کاربر")
+    first_name = models.CharField(max_length=50, verbose_name="نام")
+    last_name = models.CharField(max_length=50, verbose_name="نام خانوادگی")
+    national_id = models.CharField(
+        max_length=10,
+        unique=True,
+        null=True,
+        blank=True,
+        verbose_name='کد ملی',
+        validators=[RegexValidator(r'^\d{10}$', message="کد ملی باید 10 رقم باشد.")]
+    )
+    birth_date = models.DateField(null=True, blank=True, verbose_name='تاریخ تولد')
+    address = models.TextField(null=True, blank=True, verbose_name="آدرس")
+    updated_date = models.DateTimeField(auto_now=True, verbose_name='آخرین برزورسانی')
+    profile_picture = models.ImageField(upload_to="profile_pictures/", blank=True, verbose_name="عکس پروفایل")
 
+    def validate_national_id(self):
+        check = int(self.national_id[9])
+        total = sum(int(self.national_id[i]) * (10 - i) for i in range(9))
+        remainder = total % 11
+        valid = (remainder < 2 and check == remainder) or (remainder >= 2 and check == 11 - remainder)
+        if not valid:
+            raise ValidationError("کد ملی نامعتبر است.")
+        
+    def save(self, *args, **kwargs):
+        self.validate_national_id()
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f"{self.first_name} {self.last_name}"
     
+@receiver(post_save, sender=CustomUser)
+def create_or_update_user_profile(sender, instance, created, **kwargs):
+    """
+    Create or update a profile when a CustomUser is created or updated.
+    """
+    if created:
+        Profile.objects.create(user=instance)
+    instance.profile.save() 
