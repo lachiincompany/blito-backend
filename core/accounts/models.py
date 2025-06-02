@@ -27,7 +27,7 @@ class CustomUserManager(BaseUserManager):
         return phone 
     
     def create_user(self, phone, password=None, **extra_fields):
-        phone = self._validate_phone('email')
+        phone = self._validate_phone(phone)
         email = extra_fields.get('email')
         if email:
             extra_fields['email'] = self.normalize_email(email)
@@ -66,7 +66,18 @@ class CustomUserManager(BaseUserManager):
         
 
 
-class CustomUser(AbstractBaseUser, PermissionsMixin)    :
+class CustomUser(AbstractBaseUser, PermissionsMixin):
+    ROLE_CHOICES = (
+        ('customer', 'مسافر'),
+        ('driver', 'راننده'),
+        ('admin', 'مدیر'),
+    )
+    role = models.CharField(
+        max_length=10,
+        choices=ROLE_CHOICES,
+        default='customer',
+        verbose_name='نقش کاربر'
+    )
     phone = models.CharField(max_length=11, unique=True, verbose_name="شماره تلفن")
     full_name = models.CharField(max_length=100, verbose_name="نام کامل")
     email = models.EmailField(null=True, blank=True, unique=True, verbose_name="ایمیل")
@@ -78,7 +89,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin)    :
     USERNAME_FIELD = 'phone'
     REQUIRED_FIELDS = ['full_name']
 
-    objects = CustomUserManager
+    objects = CustomUserManager()
 
     def __str__(self):
         return self.phone
@@ -105,6 +116,9 @@ class Profile(models.Model):
     profile_picture = models.ImageField(upload_to="profile_pictures/", blank=True, verbose_name="عکس پروفایل")
 
     def validate_national_id(self):
+
+        if not self.national_id:
+            return 
         check = int(self.national_id[9])
         total = sum(int(self.national_id[i]) * (10 - i) for i in range(9))
         remainder = total % 11
@@ -126,4 +140,4 @@ def create_or_update_user_profile(sender, instance, created, **kwargs):
     """
     if created:
         Profile.objects.create(user=instance)
-    instance.profile.save() 
+    
