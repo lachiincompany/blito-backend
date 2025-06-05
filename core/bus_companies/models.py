@@ -1,5 +1,7 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.conf import settings
+from accounts.models import Profile
+from django.core.validators import MaxValueValidator, MinValueValidator
 # Create your models here.
 
 class BusCompany(models.Model):
@@ -11,6 +13,7 @@ class BusCompany(models.Model):
     class Meta:
         verbose_name = 'شرکت اتوبوسرانی'
         verbose_name_plural = 'شرکت‌های اتوبوسرانی'
+
 
     def __str__(self):
         return self.name
@@ -25,17 +28,27 @@ class BusCompany(models.Model):
         return self.ratings.count()
     
 class BusCompanyRating(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='کاربر')
-    company = models.ForeignKey(BusCompany, on_delete=models.CASCADE, verbose_name='شرکت اتوبوسرانی', related_name='rating')
-    rating = models.PositiveIntegerField(null=True,blank=True, verbose_name='امتیاز')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='کاربر')
+    company = models.ForeignKey(BusCompany, on_delete=models.CASCADE, verbose_name='شرکت اتوبوسرانی', related_name='ratings')
+    rating = models.PositiveIntegerField(null=True,blank=True, verbose_name='امتیاز',
+        default=1,
+        validators=[
+            MaxValueValidator(5),
+            MinValueValidator(1)
+        ]
+    )
     created_at= models.DateTimeField(auto_now_add=True)
 
     class Meta:
         verbose_name = 'امتیازدهی به شرکت'
         verbose_name_plural = 'امتیازدهی به شرکت‌ها'
+        unique_together = ['user', 'company']
+
+
 
     def __str__(self):
-        return f"{self.user.username} → {self.company.name} ({self.rating})"
+        profile = Profile.objects.get(user=self.user)
+        return f"{profile} → {self.company.name} ({self.rating})"
 
 
 
