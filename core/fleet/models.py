@@ -2,6 +2,7 @@ from django.db import models
 from bus_companies.models import BusCompany
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.conf import settings
+from accounts.models import Profile
 # Create your models here.
 
 class Fleet(models.Model):
@@ -31,7 +32,7 @@ class Fleet(models.Model):
         verbose_name='ظرفیت'
     )
     bus_type = models.CharField(max_length=20, choices=BUS_TYPE_CHOICES, default='standard', verbose_name='نوع اتوبوس')
-    driver = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='راننده', related_name='fleet')
+    driver = models.ForeignKey(Profile , on_delete=models.CASCADE, verbose_name='راننده', related_name='fleet', )
 
 
 

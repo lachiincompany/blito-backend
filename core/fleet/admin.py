@@ -16,6 +16,7 @@ class FleetAdmin(admin.ModelAdmin):
     search_fields = ('bus_number', 'license_plate', 'model', 'brand', 'driver__username', 'company__name')
     ordering = ('company', 'bus_number')
     readonly_fields = ('image_tag',)
+    list_per_page = 25
 
     fieldsets = (
         ('اطلاعات اصلی', {
@@ -57,3 +58,7 @@ class FleetAdmin(admin.ModelAdmin):
             return format_html('<img src="{}" width="100" style="border-radius: 8px;" />', obj.image.url)
         return "تصویر ندارد"
     image_tag.short_description = 'پیش‌نمایش تصویر'
+
+admin.site.site_header = 'مدیریت ناوگان اتوبوس'
+admin.site.site_title = 'مدیریت ناوگان اتوبوس'
+admin.site.index_title = 'پنل مدیریت ناوگان اتوبوس'
