@@ -95,6 +95,10 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         return self.phone
     
 
+    class Meta:
+        verbose_name = "کاربر"
+        verbose_name_plural = "کاربران"
+
 class Profile(models.Model):
     """
     Profile model to store additional user information.
@@ -132,6 +136,12 @@ class Profile(models.Model):
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
+    
+
+    class Meta:
+        verbose_name = 'پروفایل'
+        verbose_name_plural = 'پروفایل ها'
+        
     
 @receiver(post_save, sender=CustomUser)
 def create_or_update_user_profile(sender, instance, created, **kwargs):

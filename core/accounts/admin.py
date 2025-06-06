@@ -39,7 +39,6 @@ class CustomUserAdmin(UserAdmin):
     )
     readonly_fields = ("date_joiend",)
 
-    # فیلدهایی که در فرم ایجاد (ADD) کاربر جدید لازم هستند
     add_fieldsets = (
         (
             None,
@@ -56,6 +55,9 @@ class CustomUserAdmin(UserAdmin):
     USERNAME_FIELD = "phone"
     REQUIRED_FIELDS = ["full_name"]
 
+
+admin.site.site_title = 'مدیریت کاربر'
+admin.site.site_title = "مدیریت کاربران"
 
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
