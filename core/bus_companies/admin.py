@@ -20,6 +20,7 @@ class BusCompanyAdmin(admin.ModelAdmin):
         'address',
         'average_rating',
         'rating_count',
+        'active_buses_count_display',
     ]
 
     list_filter = [
@@ -29,7 +30,7 @@ class BusCompanyAdmin(admin.ModelAdmin):
 
     inlines = [BusCompanyRatingInline]
 
-    readonly_fields = ['average_rating', 'rating_count']
+    readonly_fields = ['average_rating', 'rating_count', 'active_buses_count_display']
 
     search_fields = [
         'name',
@@ -47,6 +48,7 @@ class BusCompanyAdmin(admin.ModelAdmin):
         'email',
         'phone',
         'address',
+        'active_buses_count_display',
 
     ]
 
@@ -60,6 +62,12 @@ class BusCompanyAdmin(admin.ModelAdmin):
             )
         return '-'
     email_display.short_description = 'ایمیل'
+
+
+    def active_buses_count_display(self, obj):
+        count = obj.active_buses_count
+        return format_html('<span style="color: green; font-weight: bold;">{} فعال</span>', count)
+    active_buses_count_display.short_description = 'تعداد اتوبوس‌های فعال'
 
     
     def average_rating_display(self, obj):
