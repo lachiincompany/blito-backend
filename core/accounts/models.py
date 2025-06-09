@@ -83,7 +83,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(null=True, blank=True, unique=True, verbose_name="ایمیل")
     is_active = models.BooleanField(default=True, verbose_name="وضعیت")
     is_staff = models.BooleanField(default=False, verbose_name="کارمند")
-    date_joiend = models.DateTimeField(auto_now_add=True, verbose_name="تاریخ ثبت نام")
+    date_joined = models.DateTimeField(auto_now_add=True, verbose_name="تاریخ ثبت نام")
 
 
     USERNAME_FIELD = 'phone'

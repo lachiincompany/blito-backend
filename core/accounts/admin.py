@@ -14,11 +14,11 @@ class CustomUserAdmin(UserAdmin):
         "role",
         "is_active",
         "is_staff",
-        "date_joiend",
+        "date_joined",
     )
     list_filter = ("role", "is_active", "is_staff")
     search_fields = ("phone", "email", "full_name")
-    ordering = ("-date_joiend",)
+    ordering = ("-date_joined",)
 
     fieldsets = (
         (None, {"fields": ("phone", "password")}),
@@ -35,9 +35,9 @@ class CustomUserAdmin(UserAdmin):
                 )
             },
         ),
-        (_("اطلاعات زمانی"), {"fields": ("date_joiend",)}),
+        (_("اطلاعات زمانی"), {"fields": ("date_joined",)}),
     )
-    readonly_fields = ("date_joiend",)
+    readonly_fields = ("date_joined",)
 
     add_fieldsets = (
         (
