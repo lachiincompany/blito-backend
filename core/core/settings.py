@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'reservations',
     'routes',
     'seat',
+    'city',
     'trips',
 ]
 
