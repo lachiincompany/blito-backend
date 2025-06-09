@@ -17,6 +17,7 @@ class Fleet(models.Model):
     license_plate = models.CharField(max_length=15, unique=True, verbose_name='پلاک')
     model = models.CharField(max_length=50, verbose_name='مدل')
     brand = models.CharField(max_length=50, verbose_name='برند')
+    is_active = models.BooleanField(default=True, verbose_name='فعال')
     year = models.PositiveIntegerField(
         validators= [
             MaxValueValidator(2023),

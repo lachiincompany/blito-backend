@@ -27,6 +27,11 @@ class BusCompany(models.Model):
     def rating_count(self):
         return self.ratings.count()
     
+    @property
+    def active_buses_count(self):
+        return self.fleet.filter(is_active=True).count()
+    
+    
 class BusCompanyRating(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='کاربر')
     company = models.ForeignKey(BusCompany, on_delete=models.CASCADE, verbose_name='شرکت اتوبوسرانی', related_name='ratings')

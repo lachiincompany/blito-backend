@@ -7,7 +7,7 @@ from django.utils.html import format_html
 class FleetAdmin(admin.ModelAdmin):
     list_display = (
         'bus_number', 'company', 'license_plate', 'driver',
-        'bus_type', 'year', 'capacity', 'facilities_display', 'image_tag'
+        'bus_type', 'year', 'capacity', 'facilities_display', 'image_tag', 'is_active'
     )
     list_filter = (
         'company', 'bus_type', 'year', 'has_wifi', 'has_ac',
@@ -22,7 +22,7 @@ class FleetAdmin(admin.ModelAdmin):
         ('اطلاعات اصلی', {
             'fields': (
                 'company', 'driver', 'bus_number', 'license_plate',
-                'model', 'brand', 'year', 'capacity', 'bus_type'
+                'model', 'brand', 'year', 'capacity', 'bus_type', 'is_active'
             )
         }),
         ('امکانات رفاهی', {
