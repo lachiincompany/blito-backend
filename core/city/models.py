@@ -5,8 +5,7 @@ from django.db import models
 
 class Province(models.Model):
     name = models.CharField(max_length=100, unique=True, verbose_name="نام استان")
-    is_active = models.BooleanField(default=True, verbose_name="فعال")
-    created_at = models.DateTimeField(auto_now_add=True)
+
     
     class Meta:
         verbose_name = "استان"
