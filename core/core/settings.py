@@ -79,6 +79,10 @@ TEMPLATES = [
     },
 ]
 
+
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [BASE_DIR / "static"]
+
 WSGI_APPLICATION = 'core.wsgi.application'
 
 
@@ -140,3 +144,15 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+JAZZMIN_SETTINGS = {
+    "site_title": "بلیتو",
+    "site_header": "پنل مدیریت بلیتو",
+    "site_logo": "images/logo.svg", 
+    "site_brand": "بلیتو",
+    "welcome_sign": "خوش آمدید به پنل مدیریت بلیتو",
+    "changeform_format": "horizontal_tabs",
+    "hide_models": ['auth.Group'],
+    "site_logo_classes": "img-fluid rounded-circle p-2 w-50 shadow-sm"
+}
