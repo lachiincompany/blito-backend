@@ -15,11 +15,10 @@ class TerminalInline(admin.TabularInline):
 
 @admin.register(Province)
 class ProvinceAdmin(admin.ModelAdmin):
-    list_display = ('name', 'is_active', 'created_at')
-    list_filter = ('is_active',)
+    list_display = ('name', )
     search_fields = ('name',)
-    readonly_fields = ('created_at',)
     ordering = ('name',)
+    list_per_page = 12
 
 
 @admin.register(City)
@@ -42,6 +41,7 @@ class CityAdmin(admin.ModelAdmin):
 
     inlines = [TerminalInline]
 
+    list_per_page = 12
 
 @admin.register(Terminal)
 class TerminalAdmin(admin.ModelAdmin):
