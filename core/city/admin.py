@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import City, Terminal
+from .models import City, Terminal, Province
 
 
 class TerminalInline(admin.TabularInline):
@@ -10,6 +10,16 @@ class TerminalInline(admin.TabularInline):
     fields = ('name', 'address', 'phone', 'is_active', 'created_at')
     readonly_fields = ('created_at',)
     show_change_link = True
+
+
+
+@admin.register(Province)
+class ProvinceAdmin(admin.ModelAdmin):
+    list_display = ('name', 'is_active', 'created_at')
+    list_filter = ('is_active',)
+    search_fields = ('name',)
+    readonly_fields = ('created_at',)
+    ordering = ('name',)
 
 
 @admin.register(City)
