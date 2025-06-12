@@ -7,7 +7,7 @@ services:
     volumes:
       - ./core:/app
     ports:
-      - "8000:8000"
+      - "12000:8000"
     environment:
       - SECRET_KEY=test
       - DEBUG=True
