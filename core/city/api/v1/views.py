@@ -14,8 +14,8 @@ class CityViewSet(viewsets.ModelViewSet):
     serializer_class = CitySerializer
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
     filterset_fields = ['name', 'province']
-    search_fields = ['name', 'province']
-    ordering_fields = ['name', 'province']
+    search_fields = ['name', 'province__name']
+    ordering_fields = ['name', 'province__name']
     ordering = ['name']
 
 class ProvinceViewSet(viewsets.ModelViewSet):
@@ -31,8 +31,8 @@ class TerminalViewSet(viewsets.ModelViewSet):
     queryset = Terminal.objects.all()
     serializer_class = TerminalSerializer
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
-    filterset_fields = ['name', 'city']
-    search_fields = ['name', 'city']
-    ordering_fields = ['name', 'city']
+    filterset_fields = ['name', 'city__name']
+    search_fields = ['name', 'city__name']
+    ordering_fields = ['name', 'city__name']
     ordering = ['name']
     
