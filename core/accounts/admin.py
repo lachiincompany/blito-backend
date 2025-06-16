@@ -4,6 +4,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import gettext_lazy as _
 from .models import CustomUser, Profile
+from django.utils.html import format_html
 
 
 @admin.register(CustomUser)
@@ -15,6 +16,7 @@ class CustomUserAdmin(UserAdmin):
         "is_active",
         "is_staff",
         "date_joined",
+        
     )
     list_filter = ("role", "is_active", "is_staff")
     search_fields = ("phone", "email", "full_name")
@@ -68,6 +70,7 @@ class ProfileAdmin(admin.ModelAdmin):
         "national_id",
         "birth_date",
         "updated_date",
+        "profile_picture_tag",
     )
     list_filter = ("birth_date",)
     search_fields = ("first_name", "last_name", "national_id", "user__phone")
@@ -76,7 +79,13 @@ class ProfileAdmin(admin.ModelAdmin):
     fieldsets = (
         (None, {"fields": ("user",)}),
         (_("اطلاعات هویتی"), {"fields": ("first_name", "last_name", "national_id", "birth_date")}),
-        (_("آدرس و تصویر"), {"fields": ("address", "profile_picture")}),
+        (_("آدرس و تصویر"), {"fields": ("address", "profile_picture", "profile_picture_tag")}),
         (_("سیستم"), {"fields": ("updated_date",)}),
     )
-    readonly_fields = ("updated_date",)
+    readonly_fields = ("updated_date","profile_picture_tag")
+
+    def profile_picture_tag(self, obj):
+        if obj.profile_picture:
+            return format_html('<img src="{}" width="100" style="border-radius:8px;" />', obj.profile_picture.url)
+        return "-"
+    profile_picture_tag.short_description = "پیش‌نمایش عکس"

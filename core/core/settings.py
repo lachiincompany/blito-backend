@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_filters',
     'rest_framework',
+    'rest_framework_simplejwt',
     'drf_spectacular',
     'accounts',
     'bus_companies',
@@ -88,6 +89,10 @@ STATICFILES_DIRS = [BASE_DIR / "static"]
 
 WSGI_APPLICATION = 'core.wsgi.application'
 
+import os
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
@@ -124,6 +129,26 @@ AUTH_PASSWORD_VALIDATORS = [
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
 
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=10),  # توکن کوتاه‌عمر = امنیت بالا
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),     # برای auto login
+
+#     'ROTATE_REFRESH_TOKENS': True,                   # هر بار رفرش شد، توکن جدید بسازه
+#     'BLACKLIST_AFTER_ROTATION': True,                # قبلی رو غیرفعال کنه = امنیت بیشتر
+
+#     'UPDATE_LAST_LOGIN': True,                       # زمان آخرین ورود رو به‌روز کنه
+
+#     'ALGORITHM': 'HS256',
+#     'SIGNING_KEY': SECRET_KEY,                       # استفاده از SECRET_KEY خود پروژه
+#     'AUTH_HEADER_TYPES': ('Bearer',),                # نوع هدر برای درخواست‌ها
+
+#     'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
+#     'TOKEN_TYPE_CLAIM': 'token_type',
+}
+
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
@@ -156,6 +181,9 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10,
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
 }
 
 JAZZMIN_SETTINGS = {
