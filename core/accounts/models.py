@@ -54,6 +54,8 @@ class CustomUserManager(BaseUserManager):
             raise ValidationError(_("Superuser must have is_staff=True."))
         if not extra_fields.get("is_superuser"):
             raise ValidationError(_("Superuser must have is_superuser=True."))
+        if not extra_fields.get("is_verified"):
+            raise ValidationError(_("Superuser must have is_verified=True."))
         
         return self.create_user(phone, password, **extra_fields)
     
@@ -83,6 +85,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(null=True, blank=True, unique=True, verbose_name="ایمیل")
     is_active = models.BooleanField(default=True, verbose_name="وضعیت")
     is_staff = models.BooleanField(default=False, verbose_name="کارمند")
+    is_verified = models.BooleanField(default=False, verbose_name="تایید شده")
     date_joined = models.DateTimeField(auto_now_add=True, verbose_name="تاریخ ثبت نام")
 
 

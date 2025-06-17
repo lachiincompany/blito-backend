@@ -12,6 +12,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         data["full-name"] = self.user.full_name
         data["role"] = self.user.role
         data["email"] = self.user.email
+        data["is_verified"] = self.user.is_verified
         return data
 
 class ChangePasswordSerializer(serializers.Serializer):
@@ -24,15 +25,24 @@ class ChangePasswordSerializer(serializers.Serializer):
 
 
 class RegisterSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(write_only=True, min_length=5)
-
+    password1 = serializers.CharField(write_only=True, min_length=5)
+    password2 = serializers.CharField(write_only=True, min_length=5)
     class Meta:
         model = CustomUser
-        fields = ['phone', 'full_name', 'password', 'email']
+        fields = ['phone', 'full_name', 'password1','password2', 'email']
     
+
+    def validate(self, data):
+        if data['password1'] != data["password2"]:
+            raise serializers.ValidationError("رمز های مطابقت ندارند")
+        return data
+
     def create(self, validated_data):
-        password = validated_data.pop('password')
+        password = validated_data.pop('password1')
+        validated_data.pop('password2')
         user = CustomUser.objects.create_user(password=password, **validated_data)
+        user.is_verified = False 
+        user.save()
         return user
 
 class ProfileSerializer(serializers.ModelSerializer):
