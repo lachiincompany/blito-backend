@@ -16,52 +16,56 @@ class CustomUserAdmin(UserAdmin):
         "is_active",
         "is_staff",
         "date_joined",
-        'is_verified',
-        
+        "is_verified",
     )
-    list_filter = ("role", "is_active", "is_staff")
-    search_fields = ("phone", "email", "full_name")
+    
+    list_filter = (
+        "role",
+        "is_active",
+        "is_staff",
+    )
+    
+    search_fields = (
+        "phone",
+        "email",
+        "full_name",
+    )
+    
     ordering = ("-date_joined",)
-
+    
     fieldsets = (
         (None, {"fields": ("phone", "password")}),
-        (_("اطلاعات شخصی"), {"fields": ("full_name", "email", "role")}),
-        (
-            _("دسترسی‌ها و مجوزها"),
-            {
-                "fields": (
-                    "is_active",
-                    "is_staff",
-                    "is_superuser",
-                    "groups",
-                    "user_permissions",
-                )
-            },
-        ),
-        (_("اطلاعات زمانی"), {"fields": ("date_joined",)}),
+        (_("👤 اطلاعات شخصی"), {"fields": ("full_name", "email", "role")}),
+        (_("🔑 دسترسی‌ها و مجوزها"), {
+            "fields": (
+                "is_active",
+                "is_staff",
+                "is_superuser",
+                "groups",
+                "user_permissions",
+            )
+        }),
+        (_("⏱️ اطلاعات زمانی"), {"fields": ("date_joined",)}),
     )
+    
     readonly_fields = ("date_joined",)
-
+    
     add_fieldsets = (
-        (
-            None,
-            {
-                "classes": ("wide",),
-                "fields": ("phone", "full_name", "email", "role", "password1", "password2"),
-            },
-        ),
+        (None, {
+            "classes": ("wide",),
+            "fields": ("phone", "full_name", "email", "role", "password1", "password2"),
+        }),
     )
-
+    
     add_form_template = "admin/auth/user/add_form.html"
     change_user_password_template = None
-
+    
     USERNAME_FIELD = "phone"
     REQUIRED_FIELDS = ["full_name"]
 
-
-admin.site.site_title = 'مدیریت کاربر'
-admin.site.site_title = "مدیریت کاربران"
-
+admin.site.site_header = "💼 مدیریت کاربران"
+admin.site.site_title = "💻 مدیریت کاربران"
+admin.site.index_title = "🎯 داشبورد مدیریت"
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
     list_display = (
@@ -78,15 +82,33 @@ class ProfileAdmin(admin.ModelAdmin):
     ordering = ("-updated_date",)
 
     fieldsets = (
-        (None, {"fields": ("user",)}),
-        (_("اطلاعات هویتی"), {"fields": ("first_name", "last_name", "national_id", "birth_date")}),
-        (_("آدرس و تصویر"), {"fields": ("address", "profile_picture", "profile_picture_tag")}),
-        (_("سیستم"), {"fields": ("updated_date",)}),
+        (None, {
+            "fields": ("user",),
+            "description": "👤 اطلاعات کاربر مربوط به این پروفایل"
+        }),
+        (_("🪪 اطلاعات هویتی"), {
+            "fields": ("first_name", "last_name", "national_id", "birth_date"),
+            "description": "📆 اطلاعات شناسنامه‌ای و تولد"
+        }),
+        (_("🏠 آدرس و 🖼️ تصویر پروفایل"), {
+            "fields": ("address", "profile_picture", "profile_picture_tag"),
+            "description": "📍 آدرس و نمایش تصویر کاربر"
+        }),
+        (_("⚙️ اطلاعات سیستمی"), {
+            "fields": ("updated_date",),
+            "description": "⏱️ تاریخ آخرین بروزرسانی"
+        }),
     )
-    readonly_fields = ("updated_date","profile_picture_tag")
+
+    readonly_fields = ("updated_date", "profile_picture_tag")
 
     def profile_picture_tag(self, obj):
         if obj.profile_picture:
-            return format_html('<img src="{}" width="100" style="border-radius:8px;" />', obj.profile_picture.url)
-        return "-"
-    profile_picture_tag.short_description = "پیش‌نمایش عکس"
+            return format_html(
+                '<div style="padding:4px; border:1px solid #ccc; display:inline-block;">'
+                '<img src="{}" width="100" style="border-radius:12px; box-shadow:0 2px 5px rgba(0,0,0,0.1);" />'
+                '</div>', obj.profile_picture.url
+            )
+        return format_html('<span style="color: #888;">❌ بدون عکس</span>')
+
+    profile_picture_tag.short_description = "🖼️ پیش‌نمایش عکس"

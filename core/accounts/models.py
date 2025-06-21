@@ -95,7 +95,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     objects = CustomUserManager()
 
     def __str__(self):
-        return self.phone
+        return f"{self.phone}({self.full_name})"
     
 
     class Meta:
@@ -115,26 +115,15 @@ class Profile(models.Model):
         null=True,
         blank=True,
         verbose_name='کد ملی',
-        validators=[RegexValidator(r'^\d{10}$', message="کد ملی باید 10 رقم باشد.")]
     )
     birth_date = models.DateField(null=True, blank=True, verbose_name='تاریخ تولد')
     address = models.TextField(null=True, blank=True, verbose_name="آدرس")
     updated_date = models.DateTimeField(auto_now=True, verbose_name='آخرین برزورسانی')
     profile_picture = models.ImageField(upload_to="profile_pictures/", blank=True, verbose_name="عکس پروفایل")
 
-    def validate_national_id(self):
 
-        if not self.national_id:
-            return 
-        check = int(self.national_id[9])
-        total = sum(int(self.national_id[i]) * (10 - i) for i in range(9))
-        remainder = total % 11
-        valid = (remainder < 2 and check == remainder) or (remainder >= 2 and check == 11 - remainder)
-        if not valid:
-            raise ValidationError("کد ملی نامعتبر است.")
         
     def save(self, *args, **kwargs):
-        self.validate_national_id()
         super().save(*args, **kwargs)
 
     def __str__(self):

@@ -69,7 +69,6 @@ class ProfileView(generics.RetrieveUpdateAPIView):
     
 
 class VerifyEmailView(APIView):
-    print("senf email.....")
     def get(self, request, uidb64, token):
         try:
             uid = force_str(urlsafe_base64_decode(uidb64))
