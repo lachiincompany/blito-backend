@@ -16,6 +16,7 @@ class CustomUserAdmin(UserAdmin):
         "is_active",
         "is_staff",
         "date_joined",
+        'is_verified',
         
     )
     list_filter = ("role", "is_active", "is_staff")

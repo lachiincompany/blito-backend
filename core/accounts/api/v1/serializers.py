@@ -2,12 +2,13 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework import serializers
 from django.contrib.auth.password_validation import validate_password
 from accounts.models import Profile , CustomUser
-
+from .utils import send_verification_email
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     
     def validate(self, attrs,):
         data = super().validate(attrs)
-
+        if not self.user.is_verified:
+            raise serializers.ValidationError("ایمیل شما هنوز تایید نشده است")
         data["phone"] = self.user.phone
         data["full-name"] = self.user.full_name
         data["role"] = self.user.role
@@ -36,12 +37,15 @@ class RegisterSerializer(serializers.ModelSerializer):
         if data['password1'] != data["password2"]:
             raise serializers.ValidationError("رمز های مطابقت ندارند")
         return data
+    
 
     def create(self, validated_data):
         password = validated_data.pop('password1')
         validated_data.pop('password2')
         user = CustomUser.objects.create_user(password=password, **validated_data)
         user.is_verified = False 
+        request = self.context.get('request')
+        send_verification_email(request, user)
         user.save()
         return user
 

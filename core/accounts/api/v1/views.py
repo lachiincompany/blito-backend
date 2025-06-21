@@ -10,6 +10,9 @@ from rest_framework.response import Response
 from django.contrib.auth.models import User
 from accounts.models import CustomUser
 from rest_framework.views import APIView
+from django.utils.encoding import force_str
+from django.utils.http import urlsafe_base64_decode
+from django.contrib.auth.tokens import default_token_generator
 
 
 
@@ -64,3 +67,26 @@ class ProfileView(generics.RetrieveUpdateAPIView):
     def get_object(self):
         return self.request.user.profile
     
+
+class VerifyEmailView(APIView):
+    print("senf email.....")
+    def get(self, request, uidb64, token):
+        try:
+            uid = force_str(urlsafe_base64_decode(uidb64))
+            user = CustomUser.objects.get(pk=uid)
+        except Exception:
+            return Response({'detail': 'لینک نامعتبر است.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        if default_token_generator.check_token(user, token):
+            user.is_verified = True
+            user.save(update_fields=['is_verified'])
+            return Response({'detail': '✅ ایمیل با موفقیت تأیید شد.'})
+        else:
+            return Response({'detail': '❌ لینک منقضی یا نامعتبر است.'}, status=status.HTTP_400_BAD_REQUEST)
+
+from django.urls import reverse
+from django.http import HttpResponse
+       
+def test_reverse(request):
+    url = reverse('email-verify', kwargs={'uidb64': 'abc', 'token': '123'})
+    return HttpResponse(f"url: {url}")

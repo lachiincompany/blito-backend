@@ -10,6 +10,8 @@ from .views import (
     ProfileView,
     RegisterView,
     LogoutView,
+    VerifyEmailView,
+    test_reverse
 )
 urlpatterns = [
     path('api/create/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
@@ -19,4 +21,6 @@ urlpatterns = [
     path('api/profile', ProfileView.as_view() , name= "profile"),
     path('api/register', RegisterView.as_view(), name="register"),
     path('api/logout/', LogoutView.as_view(), name="Logout"),
+    path('verify-email/<uidb64>/<token>/', VerifyEmailView.as_view(), name="email-verify"),
+    # path('test', test_reverse)
 ]

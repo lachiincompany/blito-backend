@@ -54,8 +54,8 @@ class CustomUserManager(BaseUserManager):
             raise ValidationError(_("Superuser must have is_staff=True."))
         if not extra_fields.get("is_superuser"):
             raise ValidationError(_("Superuser must have is_superuser=True."))
-        if not extra_fields.get("is_verified"):
-            raise ValidationError(_("Superuser must have is_verified=True."))
+        # if not extra_fields.get("is_verified"):
+        #     raise ValidationError(_("Superuser must have is_verified=True."))
         
         return self.create_user(phone, password, **extra_fields)
     

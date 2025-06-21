@@ -6,3 +6,4 @@ psycopg2-binary>=2.9.9
 drf-yasg
 drf_spectacular
 django-filter>=23.5
+djangorestframework-simplejwt
