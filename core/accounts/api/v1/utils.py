@@ -5,6 +5,8 @@ from django.template.loader import render_to_string
 from django.core.mail import EmailMultiAlternatives
 from django.urls import reverse
 
+
+# ✅ ارسال ایمیل تأیید ثبت‌نام
 def send_verification_email(request, user):
     uidb64 = urlsafe_base64_encode(force_bytes(user.pk))
     token = default_token_generator.make_token(user)

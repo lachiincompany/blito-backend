@@ -43,6 +43,7 @@ class CustomUserAdmin(UserAdmin):
                 "is_superuser",
                 "groups",
                 "user_permissions",
+                "is_verified",
             )
         }),
         (_("⏱️ اطلاعات زمانی"), {"fields": ("date_joined",)}),
