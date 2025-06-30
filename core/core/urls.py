@@ -17,11 +17,17 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView, SpectacularRedocView
-
+from rest_framework_simplejwt.views import ( # type: ignore
+    TokenObtainPairView, # type: ignore
+    TokenRefreshView,
+    TokenVerifyView,
+)
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('accounts/', include('accounts.urls')),
+    path('accounts/', include('accounts.urls')),
     path('bus_companies/', include('bus_companies.urls')),
     path('city/', include('city.urls')),
     # path('fleet/', include('fleet.urls')),
@@ -33,4 +39,4 @@ urlpatterns = [
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
     path('api/schema/swagger-ui/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
     path('api/schema/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
-]
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

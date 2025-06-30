@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_filters',
     'rest_framework',
+    'rest_framework_simplejwt',
     'drf_spectacular',
     'accounts',
     'bus_companies',
@@ -69,7 +70,7 @@ ROOT_URLCONF = 'core.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -88,21 +89,35 @@ STATICFILES_DIRS = [BASE_DIR / "static"]
 
 WSGI_APPLICATION = 'core.wsgi.application'
 
+import os
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'postgres',
+#         'USER': 'postgres.abxuvjwxbzcuozxqcvjl',
+#         'PASSWORD': 'Lachin1404@urmia',
+#         'HOST': 'aws-0-eu-central-1.pooler.supabase.com',
+#         'PORT': '5432',
+#     }
+# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'USER': 'postgres.abxuvjwxbzcuozxqcvjl',
-        'PASSWORD': 'Lachin1404@urmia',
-        'HOST': 'aws-0-eu-central-1.pooler.supabase.com',
+        'NAME': 'BlitoDB',
+        'USER': 'postgres',
+        'PASSWORD': '1234',
+        'HOST': 'db',
         'PORT': '5432',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -123,6 +138,26 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
+
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=10),  # توکن کوتاه‌عمر = امنیت بالا
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),     # برای auto login
+
+#     'ROTATE_REFRESH_TOKENS': True,                   # هر بار رفرش شد، توکن جدید بسازه
+#     'BLACKLIST_AFTER_ROTATION': True,                # قبلی رو غیرفعال کنه = امنیت بیشتر
+
+#     'UPDATE_LAST_LOGIN': True,                       # زمان آخرین ورود رو به‌روز کنه
+
+#     'ALGORITHM': 'HS256',
+#     'SIGNING_KEY': SECRET_KEY,                       # استفاده از SECRET_KEY خود پروژه
+#     'AUTH_HEADER_TYPES': ('Bearer',),                # نوع هدر برای درخواست‌ها
+
+#     'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
+#     'TOKEN_TYPE_CLAIM': 'token_type',
+}
+
 
 
 # Internationalization
@@ -156,6 +191,9 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10,
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
 }
 
 JAZZMIN_SETTINGS = {
@@ -168,3 +206,13 @@ JAZZMIN_SETTINGS = {
     "hide_models": ['auth.Group'],
     "site_logo_classes": "img-fluid rounded-circle p-2 w-50 shadow-sm"
 }
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'blitocompany@gmail.com'
+EMAIL_HOST_PASSWORD = 'uwzf oizm crnq lppj'  # App Password
+DEFAULT_FROM_EMAIL = 'Belito <blitocompany@gmail.com>'
+
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
