@@ -3,6 +3,7 @@ from rest_framework import serializers
 from django.contrib.auth.password_validation import validate_password
 from accounts.models import Profile , CustomUser
 from .utils import send_verification_email
+
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     
     def validate(self, attrs,):
