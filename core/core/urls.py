@@ -31,6 +31,7 @@ urlpatterns = [
     path('bus_companies/', include('bus_companies.urls')),
     path('city/', include('city.urls')),
     path('routes/', include('routes.urls')),
+    path('trips/', include('trips.urls')),
     # path('fleet/', include('fleet.urls')),
     # path('payments/', include('payments.urls')),
     # path('reservations/', include('reservations.urls')),
