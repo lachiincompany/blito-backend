@@ -68,8 +68,8 @@ class Fleet(models.Model):
             facilities.append('تلویزیون')
         if self.has_charging:
             facilities.append('شارژر موبایل')
-        if self.has_music:
-            facilities.append('سیستم صوتی')
+        # if self.has_music:
+        #     facilities.append('سیستم صوتی')
         if self.has_blanket:
             facilities.append('پتو')
         if self.has_food_service:

@@ -103,27 +103,27 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'postgres',
-#         'USER': 'postgres.abxuvjwxbzcuozxqcvjl',
-#         'PASSWORD': 'Lachin1404@urmia',
-#         'HOST': 'aws-0-eu-central-1.pooler.supabase.com',
-#         'PORT': '5432',
-#     }
-# }
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'BlitoDB',
-        'USER': 'postgres',
-        'PASSWORD': '1234',
-        'HOST': 'db',
+        'NAME': 'postgres',
+        'USER': 'postgres.abxuvjwxbzcuozxqcvjl',
+        'PASSWORD': 'Lachin1404@urmia',
+        'HOST': 'aws-0-eu-central-1.pooler.supabase.com',
         'PORT': '5432',
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'BlitoDB',
+#         'USER': 'postgres',
+#         'PASSWORD': '1234',
+#         'HOST': 'db',
+#         'PORT': '5432',
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
