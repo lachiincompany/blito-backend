@@ -1,7 +1,9 @@
 from rest_framework import serializers
 from trips.models import Trip
+from routes.api.v1.serializers import RouteSerializer
 
 class TripSerializer(serializers.ModelSerializer):
+    route = RouteSerializer(read_only=True)
     class Meta:
         model = Trip
         fields = [
