@@ -64,8 +64,6 @@ class Fleet(models.Model):
             facilities.append('وای‌فای رایگان')
         if self.has_ac:
             facilities.append('کولر')
-        if self.has_toilet:
-            facilities.append('سرویس بهداشتی')
         if self.has_tv:
             facilities.append('تلویزیون')
         if self.has_charging:

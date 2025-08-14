@@ -34,7 +34,7 @@ urlpatterns = [
     path('trips/', include('trips.urls')),
     path('reservations/', include('reservations.urls')),
     path('seat/', include('seat.urls')),
-    # path('fleet/', include('fleet.urls')),
+    path('fleet/', include('fleet.urls')),
     # path('payments/', include('payments.urls')),
     # path('tickets/', include('tickets.urls')),
     # path('users/', include('users.urls')),
