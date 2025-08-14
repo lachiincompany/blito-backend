@@ -26,6 +26,7 @@ class TripInfoSerializer(serializers.Serializer):
 
 class ReservationListSerializer(serializers.ModelSerializer):
     """سریالایزر برای نمایش لیست رزروها"""
+    totalPrice = serializers.DecimalField(source='total_price', max_digits=10, decimal_places=0, read_only=True)
     passenger_info = PassengerInfoSerializer(read_only=True)
     trip_info = TripInfoSerializer(read_only=True)
     payment_status_display = serializers.CharField(source='get_payment_status_display', read_only=True)
@@ -33,7 +34,7 @@ class ReservationListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Reservation
         fields = [
-            'id', 'reservation_code', 'total_price', 'payment_status', 
+            'id', 'reservation_code', 'totalPrice', 'payment_status', 
             'payment_status_display', 'created_at', 'passenger_info', 'trip_info'
         ]
         read_only_fields = ['id', 'reservation_code', 'created_at']

@@ -68,6 +68,7 @@ class Seat(models.Model):
                 'national_id': profile.national_id,
             }
         return None
+    
 
     def __str__(self):
         status = "رزرو شده" if self.is_reserved else "آزاد"

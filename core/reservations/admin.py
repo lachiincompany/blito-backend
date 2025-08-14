@@ -21,11 +21,11 @@ class ReservationAdmin(admin.ModelAdmin):
     list_filter = ("payment_status", "created_at")
     search_fields = ("reservation_code", "user__phone", "user__username")
     ordering = ["-created_at"]
-    readonly_fields = ("created_at", "reservation_code")
+    readonly_fields = ("created_at", "reservation_code",)
 
     fieldsets = (
         ("🧾 اطلاعات رزرو", {
-            "fields": ("reservation_code", "user", "seat", "total_price", "payment_status")
+            "fields": ("reservation_code", "user", "seat", "payment_status")
         }),
         ("🕓 زمان", {
             "fields": ("created_at",)

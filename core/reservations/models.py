@@ -10,7 +10,7 @@ class Reservation(models.Model):
     seat = models.ForeignKey(Seat, on_delete=models.CASCADE)
     user = models.ForeignKey(Profile, on_delete=models.CASCADE)
     reservation_code = models.CharField(max_length=20, unique=True, verbose_name="کد رزرو")
-    total_price = models.DecimalField(max_digits=10, decimal_places=0, verbose_name="مبلغ کل")
+    # total_price = models.DecimalField(max_digits=10, decimal_places=0, verbose_name="مبلغ کل")
     payment_status = models.CharField(max_length=20, choices=[
         ('PENDING', 'در انتظار پرداخت'),
         ('PAID', 'پرداخت شده'),
@@ -47,7 +47,9 @@ class Reservation(models.Model):
             'bus_type': self.seat.trip.bus.bus_type,
             'seat_number': self.seat.seat_number,
         }
-
+    @property
+    def total_price(self):
+        return self.seat.trip.current_price
     def __str__(self):
         return f"رزرو {self.reservation_code} - {self.user.user.phone}"
 
