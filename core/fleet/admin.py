@@ -1,7 +1,7 @@
 from django.contrib import admin
-from .models import Fleet
 from django.utils.html import format_html
-
+from .models import Fleet
+from accounts.models import Profile
 
 @admin.register(Fleet)
 class FleetAdmin(admin.ModelAdmin):
@@ -13,7 +13,10 @@ class FleetAdmin(admin.ModelAdmin):
         'company', 'bus_type', 'year', 'has_wifi', 'has_ac',
         'has_tv', 'has_charging', 'has_blanket', 'has_food_service'
     )
-    search_fields = ('bus_number', 'license_plate', 'model', 'brand', 'driver__username', 'company__name')
+    search_fields = (
+        'bus_number', 'license_plate', 'model', 'brand',
+        'driver__first_name', 'driver__last_name', 'company__name'
+    )
     ordering = ('company', 'bus_number')
     readonly_fields = ('image_tag',)
     list_per_page = 25
@@ -35,6 +38,11 @@ class FleetAdmin(admin.ModelAdmin):
             'fields': ('image', 'interior_image', 'image_tag')
         }),
     )
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == "driver":
+            kwargs["queryset"] = Profile.objects.filter(user__role="driver")
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)
 
     def facilities_display(self, obj):
         facilities = []

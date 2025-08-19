@@ -41,7 +41,7 @@ class BusCompanyAdmin(admin.ModelAdmin):
 
     ordering = ['name']
 
-    list_per_page = 20
+    # list_per_page = 20
 
     fields = [
         'name',
