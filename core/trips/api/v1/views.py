@@ -10,8 +10,8 @@ class TripViewSet(ModelViewSet):
     serializer_class = TripSerializer
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
     filterset_fields = {
-        'route__origin': ['exact'],
-        'route__destination': ['exact'],
-        'departure_datetime': ['date'], 
+        'route__origin__id': ['exact'],
+        'route__destination__id': ['exact'],
+        'departure_datetime': ['date'],
     }
     ordering_fields = ['departure_datetime', 'current_price']

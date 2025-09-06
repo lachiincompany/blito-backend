@@ -55,7 +55,7 @@ class Fleet(models.Model):
         ordering = ['company', 'bus_number']
 
     def __str__(self):
-        return f"{self.company.name} - {self.bus_number} ({self.license_plate})"
+        return f"{self.company.name} - {self.bus_number} ({self.bus_type} , {self.driver})"
     
 
     def get_facilities(self):

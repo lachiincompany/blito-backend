@@ -24,7 +24,7 @@ class Trip(models.Model):
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, 
                             default='SCHEDULED', verbose_name="وضعیت")
     driver_name = models.ForeignKey(Profile , on_delete=models.CASCADE, verbose_name='اسم راننده',)
-    driver_phone = models.CharField(max_length=15, verbose_name="تلفن راننده")
+    # driver_phone = models.CharField(max_length=15, verbose_name="تلفن راننده")
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
