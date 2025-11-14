@@ -1,15 +1,13 @@
-FROM python:3.11
-
-ENV PYTHONUNBUFFERED=1
-ENV PYTHONDONTWRITEBYTECODE=1
-
+FROM python:3.11-slim
 
 WORKDIR /app
 
 COPY requirements.txt /app/
+RUN pip install --no-cache-dir -r requirements.txt
 
-RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
+COPY . .
 
+# 🔥 این خط را اضافه کن
+RUN python manage.py collectstatic --noinput
 
-COPY ./core /app/
+CMD ["gunicorn", "backend.wsgi:application", "--bind", "0.0.0.0:8000"]

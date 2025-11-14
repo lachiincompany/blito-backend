@@ -2,22 +2,24 @@ services:
   db:
     image: postgres:15
     environment:
-      POSTGRES_DB: BlitoDB
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: BlitoDB
     ports:
       - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
 
-  blito-backend:
+  backend:
     build: .
     container_name: blito-backend
-    command: python manage.py runserver 0.0.0.0:8000
-    volumes:
-      - ./core:/app
-    ports:
-      - "12000:8000"
-    environment:
-      - SECRET_KEY=test
-      - DEBUG=True
     depends_on:
       - db
+    environment:
+      SECRET_KEY: your-secret-key
+      DEBUG: False
+    ports:
+      - "8000:8000"
+
+volumes:
+  postgres_data:

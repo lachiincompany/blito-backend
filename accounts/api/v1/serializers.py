@@ -6,24 +6,49 @@ from accounts.models import CustomUser, Profile
 from .utils import send_verification_email
 
 
-# ✅ لاگین همراه با بررسی تایید ایمیل
-class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
-    def validate(self, attrs):
-        data = super().validate(attrs)
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework import serializers
+from accounts.models import CustomUser
 
-        if not self.user.is_verified:
+
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework import serializers
+from accounts.models import CustomUser
+
+class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+
+    def validate(self, attrs):
+        phone = attrs.get("phone")
+        password = attrs.get("password")
+
+        if not phone or not password:
+            raise serializers.ValidationError("شماره موبایل و رمز عبور لازم است.")
+
+        try:
+            user = CustomUser.objects.get(phone=phone)
+        except CustomUser.DoesNotExist:
+            raise serializers.ValidationError("کاربری با این شماره موبایل یافت نشد.")
+
+        if not user.check_password(password):
+            raise serializers.ValidationError("رمز عبور اشتباه است.")
+
+        if not user.is_verified:
             raise serializers.ValidationError("ایمیل شما هنوز تأیید نشده است.")
 
-        data.update({
-            "phone": self.user.phone,
-            "full_name": self.user.full_name,
-            "role": self.user.role,
-            "email": self.user.email,
-            "is_verified": self.user.is_verified
-        })
+        # ایجاد توکن‌ها (مستقیم، بدون super)
+        refresh = self.get_token(user)
+
+        data = {
+            "refresh": str(refresh),
+            "access": str(refresh.access_token),
+            "phone": user.phone,
+            "full_name": user.full_name,
+            "role": user.role,
+            "email": user.email,
+            "is_verified": user.is_verified,
+        }
 
         return data
-
 
 # ✅ تغییر رمز عبور
 class ChangePasswordSerializer(serializers.Serializer):

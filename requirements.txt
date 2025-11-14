@@ -7,3 +7,6 @@ drf-yasg
 drf_spectacular
 django-filter>=23.5
 djangorestframework-simplejwt
+gunicorn
+django-cors-headers
+whitenoise
