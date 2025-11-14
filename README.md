@@ -18,15 +18,15 @@
 
 **Dashboard**
 نمای کلی از داشبورد پنل ادمین که وضعیت پروژه و آمارها را نمایش می‌دهد.
-![Admin Dashboard](core/screenshots/admin_dashboard.png)
+![Admin Dashboard](screenshots/admin_dashboard.png)
 
 **List View (e.g., fleet)**
 نمایش لیست آیتم‌ها (مانند اتوبوس ها) با قابلیت جستجو و مرتب‌سازی.
-![fleet List](core/screenshots/admin_fleet_list.png)
+![fleet List](screenshots/admin_fleet_list.png)
 
 **Detail / Edit Form**
 فرم جزئیات و ویرایش یک رکورد، شامل فیلدها و دکمه‌های عملیات.
-![terminals Edit](core/screenshots/admin_terminal_edit.png)
+![terminals Edit](screenshots/admin_terminal_edit.png)
 
 ---
 
@@ -34,15 +34,15 @@
 
 **Swagger UI – Overview**
 نمایش کل Endpointهای پروژه با گروه‌بندی و مستندات.
-![Swagger Overview](core/screenshots/swagger_overview.png)
+![Swagger Overview](screenshots/swagger_overview.png)
 
 **Endpoint Example – Trips**
 نمایش یک Endpoint خاص، شامل پارامترها و توضیحات.
-![Swagger reservations Endpoint](core/screenshots/swagger_reservations.png)
+![Swagger reservations Endpoint](screenshots/swagger_reservations.png)
 
 **Try It Out – cities Endpoint**
 امکان تست مستقیم Endpointها از داخل Swagger.
-![Swagger Try It Out](core/screenshots/swagger_cities_tryitout.png)
+![Swagger Try It Out](screenshots/swagger_cities_tryitout.png)
 
 ## 🚀 راه‌اندازی پروژه
 
