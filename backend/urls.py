@@ -35,7 +35,7 @@ urlpatterns = [
     path('reservations/', include('reservations.urls')),
     path('seat/', include('seat.urls')),
     path('fleet/', include('fleet.urls')),
-    # path('payments/', include('payments.urls')),
+    path('payments/', include('payments.urls')),
     # path('tickets/', include('tickets.urls')),
     # path('users/', include('users.urls')),
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),

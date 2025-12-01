@@ -2,6 +2,8 @@
 # serializers.py
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
+from django.db import transaction
+from django.utils import timezone
 from reservations.models import Reservation
 from seat.models import Seat
 from seat.api.v1.serializers import SeatSerializer 
@@ -57,22 +59,38 @@ class ReservationDetailSerializer(serializers.ModelSerializer):
 
 class ReservationCreateSerializer(serializers.ModelSerializer):
     """سریالایزر برای ایجاد رزرو جدید"""
-    
+
     class Meta:
         model = Reservation
-        fields = ['seat', 'user', 'total_price']
-        
+        fields = ['seat']
+
     def validate_seat(self, value):
         """بررسی در دسترس بودن صندلی"""
-        if Reservation.objects.filter(seat=value, payment_status__in=['PENDING', 'PAID']).exists():
+        if value.is_reserved:
             raise serializers.ValidationError("این صندلی قبلاً رزرو شده است.")
         return value
-    
-    def validate_total_price(self, value):
-        """بررسی صحت قیمت"""
-        if value <= 0:
-            raise serializers.ValidationError("قیمت باید مثبت باشد.")
-        return value
+
+    def create(self, validated_data):
+        user_profile = validated_data['user']
+        seat = validated_data['seat']
+
+        with transaction.atomic():
+            seat = Seat.objects.select_for_update().select_related('trip').get(pk=seat.pk)
+            if seat.is_reserved:
+                raise serializers.ValidationError("این صندلی قبلاً رزرو شده است.")
+
+            seat.is_reserved = True
+            seat.reserved_by = user_profile
+            seat.reserved_at = timezone.now()
+            seat.save(update_fields=['is_reserved', 'reserved_by', 'reserved_at'])
+
+            reservation = Reservation.objects.create(
+                seat=seat,
+                user=user_profile,
+                total_price=seat.trip.current_price,
+            )
+
+        return reservation
 
 class ReservationUpdateSerializer(serializers.ModelSerializer):
     """سریالایزر برای بروزرسانی وضعیت پرداخت"""

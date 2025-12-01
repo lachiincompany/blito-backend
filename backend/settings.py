@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'seat',
     'city',
     'trips',
+
 ]
 
 

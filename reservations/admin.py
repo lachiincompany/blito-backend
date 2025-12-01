@@ -1,10 +1,5 @@
 from django.contrib import admin
-
-# Register your models here.
-
-from django.contrib import admin
 from .models import Reservation
-from django.utils.html import format_html
 
 
 @admin.register(Reservation)
@@ -19,16 +14,16 @@ class ReservationAdmin(admin.ModelAdmin):
         "created_at",
     )
     list_filter = ("payment_status", "created_at")
-    search_fields = ("reservation_code", "user__phone", "user__username")
+    search_fields = ("reservation_code", "user__user__phone", "user__user__full_name")
     ordering = ["-created_at"]
-    readonly_fields = ("created_at", "reservation_code",)
+    readonly_fields = ("created_at", "updated_at", "reservation_code", "total_price")
 
     fieldsets = (
         ("🧾 اطلاعات رزرو", {
-            "fields": ("reservation_code", "user", "seat", "payment_status")
+            "fields": ("reservation_code", "user", "seat", "payment_status", "total_price")
         }),
         ("🕓 زمان", {
-            "fields": ("created_at",)
+            "fields": ("created_at", "updated_at")
         }),
     )
 
