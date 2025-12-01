@@ -1,9 +1,6 @@
 from django.db import models
 from bus_companies.models import BusCompany
 from django.core.validators import MaxValueValidator, MinValueValidator
-from django.conf import settings
-from accounts.models import Profile
-# Create your models here.
 
 class Fleet(models.Model):
     BUS_TYPE_CHOICES = [
@@ -33,10 +30,6 @@ class Fleet(models.Model):
         verbose_name='ظرفیت'
     )
     bus_type = models.CharField(max_length=20, choices=BUS_TYPE_CHOICES, default='standard', verbose_name='نوع اتوبوس')
-    driver = models.ForeignKey(Profile , on_delete=models.CASCADE, verbose_name='راننده', related_name='fleet', )
-
-
-
     has_wifi = models.BooleanField(default=False, verbose_name=' وای فای')
     has_ac = models.BooleanField(default=False, verbose_name='کولر')
     has_tv = models.BooleanField(default=False, verbose_name='تلویزیون')
@@ -55,7 +48,7 @@ class Fleet(models.Model):
         ordering = ['company', 'bus_number']
 
     def __str__(self):
-        return f"{self.company.name} - {self.bus_number} ({self.bus_type} , {self.driver})"
+        return f"{self.company.name} - {self.bus_number} ({self.bus_type})"
     
 
     def get_facilities(self):

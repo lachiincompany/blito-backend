@@ -1,12 +1,12 @@
 from django.contrib import admin
 from django.utils.html import format_html
 from .models import Fleet
-from accounts.models import Profile
+
 
 @admin.register(Fleet)
 class FleetAdmin(admin.ModelAdmin):
     list_display = (
-        'bus_number', 'company', 'license_plate', 'driver',
+        'bus_number', 'company', 'license_plate',
         'bus_type', 'year', 'capacity', 'facilities_display', 'image_tag', 'is_active'
     )
     list_filter = (
@@ -14,8 +14,7 @@ class FleetAdmin(admin.ModelAdmin):
         'has_tv', 'has_charging', 'has_blanket', 'has_food_service'
     )
     search_fields = (
-        'bus_number', 'license_plate', 'model', 'brand',
-        'driver__first_name', 'driver__last_name', 'company__name'
+        'bus_number', 'license_plate', 'model', 'brand', 'company__name'
     )
     ordering = ('company', 'bus_number')
     readonly_fields = ('image_tag',)
@@ -24,7 +23,7 @@ class FleetAdmin(admin.ModelAdmin):
     fieldsets = (
         ('اطلاعات اصلی', {
             'fields': (
-                'company', 'driver', 'bus_number', 'license_plate',
+                'company', 'bus_number', 'license_plate',
                 'model', 'brand', 'year', 'capacity', 'bus_type', 'is_active'
             )
         }),
@@ -38,11 +37,6 @@ class FleetAdmin(admin.ModelAdmin):
             'fields': ('image', 'interior_image', 'image_tag')
         }),
     )
-
-    def formfield_for_foreignkey(self, db_field, request, **kwargs):
-        if db_field.name == "driver":
-            kwargs["queryset"] = Profile.objects.filter(user__role="driver")
-        return super().formfield_for_foreignkey(db_field, request, **kwargs)
 
     def facilities_display(self, obj):
         facilities = []

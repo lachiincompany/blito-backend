@@ -15,7 +15,6 @@ class TripSerializer(serializers.ModelSerializer):
             'arrival_datetime',
             'current_price',
             'status',
-            'driver_name',
             'created_at',
         ]
         read_only_fields = ['id', 'created_at']

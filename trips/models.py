@@ -1,11 +1,7 @@
 from django.db import models
 from django.core.exceptions import ValidationError
-from django.utils import timezone
-from city.models import Terminal
-from bus_companies.models import BusCompany
 from fleet.models import Fleet
 from routes.models import Route
-from accounts.models import Profile
 
 class Trip(models.Model):
     STATUS_CHOICES = [
@@ -23,7 +19,6 @@ class Trip(models.Model):
     current_price = models.DecimalField(max_digits=10, decimal_places=0, verbose_name="قیمت فعلی")
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, 
                             default='SCHEDULED', verbose_name="وضعیت")
-    driver_name = models.ForeignKey(Profile , on_delete=models.CASCADE, verbose_name='اسم راننده',)
     # driver_phone = models.CharField(max_length=15, verbose_name="تلفن راننده")
     created_at = models.DateTimeField(auto_now_add=True)
 

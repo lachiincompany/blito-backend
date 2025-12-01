@@ -73,7 +73,6 @@ class Command(BaseCommand):
                 arrival = departure + route.estimated_duration + timedelta(minutes=random.randint(30, 60))
 
                 bus = get_matching_bus(route.company, route.bus_type)
-                driver = get_random_driver()
                 current_price = route.base_price + random.randint(-50000, 50000)
 
                 trip = Trip(
@@ -83,7 +82,6 @@ class Command(BaseCommand):
                     arrival_datetime=arrival,
                     current_price=current_price,
                     status='SCHEDULED',
-                    driver_name=driver,
                 )
                 trip.clean()
                 trip.save()

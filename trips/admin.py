@@ -12,11 +12,10 @@ class TripAdmin(admin.ModelAdmin):
         "short_departure",
         "short_arrival",
         "current_price",
-        "driver_name",
         # "driver_phone",
     )
     list_filter = ("status", "route__company", "departure_datetime")
-    search_fields = ("driver_name", "route__origin__city__name", "route__destination__city__name")
+    search_fields = ("route__origin__city__name", "route__destination__city__name")
     ordering = ["-departure_datetime"]
     readonly_fields = ("created_at",)
 
@@ -27,8 +26,8 @@ class TripAdmin(admin.ModelAdmin):
         ("⏰ زمان‌بندی", {
             "fields": ("departure_datetime", "arrival_datetime"),
         }),
-        ("💰 قیمت و راننده", {
-            "fields": ("current_price", "driver_name"),
+        ("💰 قیمت", {
+            "fields": ("current_price",),
         }),
         ("📅 اطلاعات سیستمی", {
             "fields": ("created_at",),

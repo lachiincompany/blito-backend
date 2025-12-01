@@ -7,7 +7,7 @@ from .serializers import FleetSerializer
 
 
 class FleetViewSet(ModelViewSet):
-    queryset = Fleet.objects.select_related('company', 'driver').all()
+    queryset = Fleet.objects.select_related('company').all()
     serializer_class = FleetSerializer
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
     
