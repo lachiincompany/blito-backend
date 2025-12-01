@@ -53,7 +53,7 @@ INSTALLED_APPS = [
     'routes',
     'seat',
     'city',
-    'trips',
+    'trips.apps.TripsConfig',
 
 ]
 

@@ -58,24 +58,27 @@ class ReservationDetailSerializer(serializers.ModelSerializer):
         read_only_fields = ['id', 'reservation_code', 'created_at']
 
 class ReservationCreateSerializer(serializers.ModelSerializer):
-    """سریالایزر برای ایجاد رزرو جدید"""
+    reservation_code = serializers.CharField(read_only=True)
+    total_price = serializers.DecimalField(max_digits=10, decimal_places=0, read_only=True)
+    payment_status = serializers.CharField(read_only=True)
 
     class Meta:
         model = Reservation
-        fields = ['seat']
+        fields = ['id', 'seat', 'reservation_code', 'total_price', 'payment_status']
+        read_only_fields = ['id', 'reservation_code', 'total_price', 'payment_status']
 
     def validate_seat(self, value):
-        """بررسی در دسترس بودن صندلی"""
         if value.is_reserved:
             raise serializers.ValidationError("این صندلی قبلاً رزرو شده است.")
         return value
 
     def create(self, validated_data):
-        user_profile = validated_data['user']
+        # دریافت کاربر از ViewSet
+        user_profile = self.context['request'].user.profile
         seat = validated_data['seat']
 
         with transaction.atomic():
-            seat = Seat.objects.select_for_update().select_related('trip').get(pk=seat.pk)
+            seat = Seat.objects.select_for_update().get(pk=seat.pk)
             if seat.is_reserved:
                 raise serializers.ValidationError("این صندلی قبلاً رزرو شده است.")
 
@@ -91,6 +94,8 @@ class ReservationCreateSerializer(serializers.ModelSerializer):
             )
 
         return reservation
+
+
 
 class ReservationUpdateSerializer(serializers.ModelSerializer):
     """سریالایزر برای بروزرسانی وضعیت پرداخت"""
