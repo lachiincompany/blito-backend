@@ -6,7 +6,7 @@ services:
       POSTGRES_PASSWORD: 1234
       POSTGRES_DB: BlitoDB
     ports:
-      - "6000:5432"
+      - "127.0.0.1:6000:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
@@ -19,7 +19,7 @@ services:
       SECRET_KEY: your-secret-key
       DEBUG: False
     ports:
-      - "8000:8000"
+      - "127.0.0.1:9000:8000"
 
 volumes:
   postgres_data:
