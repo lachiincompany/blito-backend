@@ -213,16 +213,44 @@ REST_FRAMEWORK = {
     )
 }
 
+# settings.py
+
+# LANGUAGE_CODE = "fa-ir"
+TIME_ZONE = "Asia/Tehran"
+USE_I18N = True
+USE_TZ = True
+
 JAZZMIN_SETTINGS = {
-    "site_title": "بلیتو",
+    "site_title": "مدیریت بلیتو",
     "site_header": "پنل مدیریت بلیتو",
-    "site_logo": "images/logo.svg", 
     "site_brand": "بلیتو",
-    "welcome_sign": "خوش آمدید به پنل مدیریت بلیتو",
+    "welcome_sign": "خوش آمدید 👋",
+    "site_logo": "images/logo.svg",
+    "login_logo": "images/logo.svg",
+    "site_logo_classes": "img-circle elevation-2",
+
     "changeform_format": "horizontal_tabs",
-    "hide_models": ['auth.Group'],
-    "site_logo_classes": "img-fluid rounded-circle p-2 w-50 shadow-sm"
+    "navigation_expanded": True,
+    "hide_models": ["auth.Group"],
+
+    "custom_css": "admin/custom.css",
+
+    "icons": {
+        "reservations.Reservation": "fas fa-ticket-alt",
+        "seat.Seat": "fas fa-chair",
+        "trips.Trip": "fas fa-bus",
+        "routes.Route": "fas fa-route",
+        "fleet.Fleet": "fas fa-shuttle-van",
+        "payments.Payment": "fas fa-credit-card",
+        "bus_companies.BusCompany": "fas fa-building",
+        "city.City": "fas fa-city",
+        "accounts.Profile": "fas fa-id-card",
+        "auth.User": "fas fa-user",
+    },
 }
+
+
+
 
 EMAIL_BACKEND = 'django.backend.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
