@@ -17,9 +17,12 @@ services:
       - db
     environment:
       SECRET_KEY: your-secret-key
-      DEBUG: False
+      DEBUG: "True"
     ports:
       - "127.0.0.1:9000:8000"
+    volumes:
+      - .:/app
+    command: python manage.py runserver 0.0.0.0:8000
 
 volumes:
   postgres_data:
