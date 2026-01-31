@@ -1,0 +1,238 @@
+/* 
+   ===== Blito Admin — Premium Blue Theme ===== 
+   Author: Gemini Enterprise
+   Style: Modern, Clean, Glassmorphism
+   Note: No RTL enforcement applied.
+*/
+
+
+
+
+:root {
+  /* --- پالت رنگی آبی مدرن --- */
+  --primary-color: #3b82f6;       /* آبی روشن و زنده */
+  --primary-dark: #2563eb;        /* آبی تیره برای هاور */
+  --secondary-color: #4f46e5;     /* نیلی برای گرادینت */
+  --accent-color: #06b6d4;        /* فیروزه‌ای برای جزئیات */
+  
+  /* --- رنگ‌های پس‌زمینه و متن --- */
+  --bg-body: #f1f5f9;             /* طوسی خیلی روشن */
+  --bg-card: #ffffff;
+  --text-main: #1e293b;           /* سرمه‌ای خیلی تیره */
+  --text-muted: #64748b;
+  
+  /* --- متغیرهای ساختاری --- */
+  --radius-lg: 16px;
+  --radius-md: 12px;
+  --radius-sm: 8px;
+  --shadow-soft: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
+  --shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* --- تنظیمات کلی --- */
+body {
+  background-color: var(--bg-body);
+  /* یک پترن محو و زیبا در پس‌زمینه */
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.1) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(79, 70, 229, 0.1) 0px, transparent 50%);
+  background-attachment: fixed;
+  font-family: 'Vazirmatn', 'Segoe UI', Tahoma, sans-serif !important;
+  color: var(--text-main);
+  font-size: 0.9rem;
+}
+
+/* --- نوار ناوبری بالا (شیشه‌ای) --- */
+.main-header {
+  background: rgba(255, 255, 255, 0.85) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3) !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+}
+
+.main-header .nav-link {
+  color: var(--text-muted) !important;
+  font-weight: 600;
+}
+
+/* --- سایدبار (منوی سمت چپ) --- */
+.main-sidebar {
+  background: #0f172a !important; /* سرمه‌ای خیلی تیره و شیک */
+  box-shadow: 4px 0 24px rgba(0,0,0,0.05);
+  border-right: none;
+}
+
+.brand-link {
+  border-bottom: 1px solid rgba(255,255,255,0.05) !important;
+  background: #0f172a !important;
+}
+
+.brand-link .brand-text {
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+/* آیتم‌های منو */
+.nav-sidebar .nav-item > .nav-link {
+  border-radius: var(--radius-md);
+  margin: 4px 10px;
+  color: #cbd5e1 !important;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.nav-sidebar .nav-item > .nav-link:hover {
+  background-color: rgba(255,255,255,0.05);
+  transform: translateX(4px); /* حرکت ریز به سمت راست */
+}
+
+/* آیتم فعال منو */
+.nav-sidebar .nav-item > .nav-link.active {
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)) !important;
+  color: #fff !important;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+}
+
+/* آیکون‌ها */
+.nav-sidebar .nav-icon {
+  opacity: 0.8;
+}
+
+/* --- کارت‌ها و پنل‌ها --- */
+.card {
+  border: none !important;
+  border-radius: var(--radius-lg) !important;
+  background: var(--bg-card);
+  box-shadow: var(--shadow-soft) !important;
+  margin-bottom: 1.5rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-hover) !important;
+  transform: translateY(-2px);
+}
+
+.card-header {
+  background-color: transparent !important;
+  border-bottom: 1px solid #f1f5f9 !important;
+  padding: 1.25rem 1.5rem;
+}
+
+.card-title {
+  font-weight: 700 !important;
+  font-size: 1.1rem;
+  color: var(--text-main);
+}
+
+/* --- جدول‌ها --- */
+.table {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.table thead th {
+  background-color: #f8fafc !important;
+  color: var(--text-muted);
+  font-weight: 700;
+  border-bottom: 2px solid #e2e8f0 !important;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  padding: 1rem;
+}
+
+.table td {
+  padding: 1rem;
+  vertical-align: middle;
+  border-top: 1px solid #f1f5f9;
+}
+
+/* --- دکمه‌ها --- */
+.btn {
+  border-radius: var(--radius-md) !important;
+  font-weight: 600;
+  padding: 0.5rem 1.2rem;
+  transition: all 0.2s;
+  border: none;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-dark)) !important;
+  box-shadow: 0 4px 6px rgba(59, 130, 246, 0.25);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, var(--primary-dark), var(--secondary-color)) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 12px rgba(59, 130, 246, 0.35);
+}
+
+.btn-success {
+    background: linear-gradient(135deg, #10b981, #059669) !important;
+}
+
+.btn-danger {
+    background: linear-gradient(135deg, #ef4444, #dc2626) !important;
+}
+
+/* --- فرم‌ها و ورودی‌ها --- */
+.form-control, .select2-container .select2-selection--single {
+  border-radius: var(--radius-md) !important;
+  border: 1px solid #e2e8f0 !important;
+  height: 45px !important; /* ارتفاع بیشتر برای زیبایی */
+  padding: 0.5rem 1rem;
+  background-color: #f8fafc;
+  transition: all 0.2s;
+}
+
+.form-control:focus {
+  background-color: #fff;
+  border-color: var(--primary-color) !important;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1) !important;
+}
+
+/* فیکس کردن سلکت 2 (Select2) که در ادمین جنگو زیاد استفاده میشه */
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    line-height: 45px !important;
+    padding-left: 10px;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 45px !important;
+}
+
+/* --- صفحه لاگین --- */
+.login-page {
+  background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%) !important;
+  position: relative;
+}
+
+.login-box {
+  width: 400px;
+}
+
+.login-box .card {
+  border-radius: 24px !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15) !important;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+}
+
+.login-logo a {
+  color: var(--primary-dark) !important;
+  font-weight: 900;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* --- حذف حاشیه‌های اضافی در کانتنت --- */
+.content-wrapper {
+  background: transparent !important;
+}
+
+/* --- رنگ‌بندی بج‌ها (Badges) --- */
+.badge {
+    padding: 0.5em 0.8em;
+    border-radius: 6px;
+    font-weight: 600;
+}
+
