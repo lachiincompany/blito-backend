@@ -1,16 +1,32 @@
-# 🚌 بلیتو (Blito) - سامانه خرید آنلاین بلیط اتوبوس
+# 🚌 بلیتو (Blito) — سامانه خرید آنلاین بلیط اتوبوس
+
+<div align="center">
+
+![Python](https://img.shields.io/badge/Python-3.x-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Django](https://img.shields.io/badge/Django-Backend-092E20?style=for-the-badge&logo=django&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+![Swagger](https://img.shields.io/badge/Swagger-API%20Docs-85EA2D?style=for-the-badge&logo=swagger&logoColor=black)
+
+</div>
+
 <div dir="rtl">
 
 ## 🌟 درباره بلیتو
-بلیتو یک پلتفرم آنلاین و مدرن برای خرید بلیط اتوبوس است که به شما امکان می‌دهد به راحتی و با چند کلیک ساده، بلیط اتوبوس خود را از بین شرکت‌های مختلف اتوبوسرانی رزرو کنید.
+**بلیتو** یک پلتفرم آنلاین و مدرن برای خرید بلیط اتوبوس است که به کاربران امکان می‌دهد با چند کلیک ساده، سفرها را جستجو کنند، صندلی موردنظر را انتخاب کنند و فرآیند رزرو را به‌صورت آنلاین انجام دهند.
+
+این ریپو مربوط به **Backend** پروژه است و با هدف پیاده‌سازی یک سیستم واقعی و قابل دیپلوی (Production-like) طراحی شده است.
 
 ### ✨ ویژگی‌های اصلی
-- 🎫 رزرو آنلاین بلیط اتوبوس
-- 🔍 جستجوی هوشمند مسیرها
-- 💺 انتخاب صندلی دلخواه
-- 💳 پرداخت امن آنلاین
-- 📱 رابط کاربری ساده و کاربرپسند
-- 🎯 مقایسه قیمت‌ها بین شرکت‌های مختلف
+- 🎫 **رزرو آنلاین** بلیط اتوبوس
+- 🔍 **جستجوی هوشمند** مسیرها و سفرها
+- 💺 **انتخاب صندلی دلخواه** و مدیریت ظرفیت
+- 💳 **پرداخت امن** و ثبت تراکنش‌ها
+- 🧑‍💼 **پنل ادمین آنلاین** برای مدیریت کامل سیستم
+- 📄 **Swagger آنلاین** برای مستندسازی و تست API
+- 🐳 اجرای سرویس‌ها با **Docker / Docker Compose**
+
+</div>
 
 ## Screenshots
 
